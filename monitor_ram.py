@@ -1,27 +1,34 @@
 import psutil
 import time
 
-while True:
-    memoria = psutil.virtual_memory()
+print("===== MONITORAMENTO DA MEMÓRIA RAM =====")
+print("Pressione Ctrl + C para encerrar o monitoramento.\n")
 
-    total = memoria.total / (1024 ** 3)
-    usada = memoria.used / (1024 ** 3)
-    disponivel = memoria.available / (1024 ** 3)
-    percentual = memoria.percent
+try:
+    while True:
+        memoria = psutil.virtual_memory()
 
-    print("===== MONITORAMENTO DA MEMÓRIA RAM =====")
-    print(f"RAM Total: {total:.2f} GB")
-    print(f"RAM Usada: {usada:.2f} GB")
-    print(f"RAM Disponível: {disponivel:.2f} GB")
-    print(f"Uso da RAM: {percentual}%")
+        total = memoria.total / (1024 ** 3)
+        usada = memoria.used / (1024 ** 3)
+        disponivel = memoria.available / (1024 ** 3)
+        percentual = memoria.percent
 
-    if percentual >= 90:
-        print("ALERTA: Memória RAM muito alta!")
-    elif percentual >= 80:
-        print("ATENÇÃO: Uso elevado de memória.")
-    else:
-        print("Memória RAM normal.")
+        print("===== MONITORAMENTO DA MEMÓRIA RAM =====")
+        print(f"RAM Total: {total:.2f} GB")
+        print(f"RAM Usada: {usada:.2f} GB")
+        print(f"RAM Disponível: {disponivel:.2f} GB")
+        print(f"Uso da RAM: {percentual:.2f}%")
 
-    print("----------------------------------------")
+        if percentual >= 90:
+            print("ALERTA: Memória RAM muito alta!")
+        elif percentual >= 80:
+            print("ATENÇÃO: Uso elevado de memória.")
+        else:
+            print("Memória RAM normal.")
 
-    time.sleep(5)
+        print("----------------------------------------")
+
+        time.sleep(5)
+
+except KeyboardInterrupt:
+    print("\nMonitoramento encerrado pelo usuário.")
